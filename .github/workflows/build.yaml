@@ -68,7 +68,8 @@ jobs:
     if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
-    
+    permissions:
+      packages: write
     steps:
      - uses: actions/download-artifact@v3
        with:
