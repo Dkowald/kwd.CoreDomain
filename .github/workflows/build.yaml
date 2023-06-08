@@ -54,7 +54,7 @@ jobs:
 
     - name: Pack
       run: dotnet pack --no-build -c Release -o ./bin src/kwd.CoreDomain
-      if: success() && github.base_ref != 'refs/heads/development'
+      if: success() && github.ref != 'refs/heads/development'
 
     - name: Keep package artifact
       uses: actions/upload-artifact@v3
@@ -65,7 +65,7 @@ jobs:
 
   publish:
     name: Publish to github packages
-    if: github.base_ref == 'refs/heads/development' || github.base_ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     
