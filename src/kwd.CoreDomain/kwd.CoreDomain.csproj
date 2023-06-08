@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsPackablae>true</IsPackablae>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<AnalysisLevel>latest</AnalysisLevel>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Version>0.1.0</Version>
+		<Authors>Derek Kowald</Authors>
+		<Product>KWD Core Domain</Product>
+		<Title>KWD Core Utilities</Title>
+		<Description>A library to help creating rich domain entites for .NET Core</Description>
+		<PackageProjectUrl>https://github.com/Dkowald/kwd.CoreDomain</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Dkowald/kwd.CorDomain.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>icon.png</PackageIcon>
+		<Tags>.NET Core;Utility</Tags>
+		<PackageReleaseNotes>
+			# Added EntityProvider, a richer factory approach for entities
+		</PackageReleaseNotes>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="$(AssemblyName).Tests" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="kwd.CoreUtil" Version="1.2.4" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+	</ItemGroup>
+	
+</Project>
