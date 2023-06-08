@@ -1,6 +1,6 @@
 # Default:
 #  build / test / pack 
-# for PR on master || development
+# for merge on master || development
 #  + nuget-publish
 # if wip/** 
 #  do nothing for work-in-progress
@@ -9,14 +9,8 @@ name: build
 on:
   push:
     branches-ignore:
-      - master
-      - development
       - wip/**
-  pull_request:
-    branches:
-      - development
-      - master    
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
