@@ -14,8 +14,10 @@ public class EntityFactoryDuplicates : Exception
     {
         /// <summary>Found multiple <see cref="IEntityFactory{TEntity,TState}" /> candidates</summary>
         MultipleExplicitFactories,
-        /// <summary>Found multiple <see cref="EntityType"/>(<see cref=".StateType"/> state, ...) candidates</summary>
+
+        /// <summary>Found multiple <see cref="EntityType"/>(<see cref="StateType"/> state, ...) candidates</summary>
         MultipleConstructors,
+
         /// <summary>Found multiple candidate static methods</summary>
         MultipleStaticMethods
     }

@@ -26,7 +26,7 @@ public interface IEntityState
 
 /// <summary>
 /// <inheritdoc cref="IEntityState"/>
-/// This entity can create its own <see cref="TState"/> state object.
+/// This entity can create its own <typeparamref name="TState"/> state object.
 /// The entity MUST provide a factory:
 /// <list type="bullet">
 /// <item>An explicit <see cref="IEntityFactory{TEntity,TState}"/> registered in the container</item>

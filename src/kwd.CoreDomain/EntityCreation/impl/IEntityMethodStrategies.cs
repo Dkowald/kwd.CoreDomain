@@ -8,11 +8,6 @@ namespace kwd.CoreDomain.EntityCreation.impl;
 public interface IEntityMethodStrategies
 {
     /// <summary>
-    /// Add strategy for use with a <see cref="methodFactoryType"/>.
-    /// </summary>
-    //IEntityMethodStrategies AddStrategy(Type methodFactoryType, Strategy strategy);
-
-    /// <summary>
     /// Get strategy associated with method factory.
     /// </summary>
     Strategy this[Type methodFactoryType] { get; }
