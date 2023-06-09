@@ -1,1 +1,1 @@
-kwd.CoreUtil v0.1.0: [Git](https://github.com/Dkowald/kwd.CoreDomain/0.1)
+kwd.CoreDomain v0.1.0: [Git](https://github.com/Dkowald/kwd.CoreDomain/)

@@ -1,3 +1,3 @@
 * [[Home|Home]]
   * Entity Creation
-      * [[EntityCreation/EntityProvider|EntityProvider]]
+      * [[EntityProvider|EntityCreation/EntityProvider]]

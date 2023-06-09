@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\kwd.CoreDomain.CustomFactory\kwd.CoreDomain.Samples.csproj" />
+    <ProjectReference Include="..\kwd.CoreDomain.Samples\kwd.CoreDomain.Samples.csproj" />
     <ProjectReference Include="..\kwd.CoreDomain\kwd.CoreDomain.csproj" />
   </ItemGroup>
   

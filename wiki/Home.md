@@ -9,4 +9,4 @@
  2. Support injecting services into an entity
  3. Support 2-step creation, with async initalization.
  
-See [[EntityCreation/EntityProvider|EntityProvider]] for details.
+See [[EntityProvider|EntityCreation/EntityProvider]] for details.
