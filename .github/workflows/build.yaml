@@ -1,6 +1,6 @@
 # Default:
 #  build / test / pack 
-# for merge on master || development
+# for merge on main || development
 #  + nuget-publish
 # if wip/** 
 #  do nothing for work-in-progress
@@ -65,7 +65,7 @@ jobs:
 
   publish:
     name: Publish to github packages
-    if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:
