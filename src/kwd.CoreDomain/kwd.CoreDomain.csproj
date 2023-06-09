@@ -10,7 +10,7 @@
 		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
 	<PropertyGroup>
-		<VersionPrefix>0.1.1</VersionPrefix>
+		<VersionPrefix>0.1.0</VersionPrefix>
 		<Authors>Derek Kowald</Authors>
 		<Product>KWD Core Domain</Product>
 		<Title>KWD Core Domain</Title>
