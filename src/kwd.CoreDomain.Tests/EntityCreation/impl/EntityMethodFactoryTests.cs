@@ -18,9 +18,9 @@ public class EntityMethodFactoryTests
     }
 
     [TestMethod]
-    public void FindStaticFactoryMethod_ValueTaskOrTask()
+    public void TryFindStaticFactoryMethod_ValueTaskOrTask()
     {
-        var op1 = EntityMethodFactory.FindStaticFactoryMethod(typeof(EntityWithBothStaticAndCtor), typeof(NoInternalState));
+        var op1 = EntityMethodFactory.TryFindStaticFactoryMethod(typeof(EntityWithBothStaticAndCtor), typeof(NoInternalState));
         
         Assert.IsNotNull(op1);
         
@@ -30,11 +30,11 @@ public class EntityMethodFactoryTests
     }
 
     [TestMethod]
-    public void FindStaticFactoryMethod_MultipleValidStatics()
+    public void TryFindStaticFactoryMethod_MultipleValidStatics()
     {
         try
         {
-            var _ = EntityMethodFactory.FindStaticFactoryMethod(typeof(TooManyStatics), typeof(NoInternalState));
+            var _ = EntityMethodFactory.TryFindStaticFactoryMethod(typeof(TooManyStatics), typeof(NoInternalState));
             Assert.Fail("Entity is broken");
         }
         catch (EntityFactoryDuplicates ex)
@@ -44,11 +44,11 @@ public class EntityMethodFactoryTests
     }
 
     [TestMethod]
-    public void FindConstructorMethod_MultipleOptions()
+    public void TryFindConstructorMethod_MultipleOptions()
     {
         try
         {
-            var _ = EntityMethodFactory.FindConstructorMethod(typeof(TooManyCtors), typeof(NoInternalState));
+            var _ = EntityMethodFactory.TryFindConstructorMethod(typeof(TooManyCtors), typeof(NoInternalState));
             Assert.Fail("Entity is broken");
         }
         catch (EntityFactoryDuplicates ex)
