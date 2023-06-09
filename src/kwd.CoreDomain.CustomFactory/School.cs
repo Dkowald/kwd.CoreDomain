@@ -4,58 +4,60 @@ using Microsoft.Extensions.Logging;
 namespace kwd.CoreDomain.Samples;
 
 /// <summary>
-/// TODO: any value?
+/// 2-stage create;
+/// internal vs public state;
+/// services and init-services
 /// </summary>
 public class School : IEntityState<School.State>
 {
-    private readonly IRepository _repo;
-    private readonly List<ClassRoom> _rooms = new();
+    private readonly ILogger<School> _log;
+    private readonly List<Staff> _staff = new();
 
-    public record State(string Name, string[] Rooms)
-    {
-        public static State New(string name)
-            => new(name, Array.Empty<string>());
-    }
+    public record State(string Name, string[] Staff);
 
-    public School(string name, IRepository repo)
+    //normal ctor
+    private School(string name, ILogger<School> log)
     {
+        _log = log;
         Name = name;
-        _repo = repo;
     }
 
-    public static async Task<School> Create(State state,
-        IRepository repo, //a entity-service
-        ILogger<School> log //a init-service
+    //factory
+    public static async Task<School> Create(
+        State state,
+        ILogger<School> log,
+        IRepository repo //a init-service
         )
     {
-        var result = new School(state.Name, repo);
+        var result = new School(state.Name, log);
 
-        log.LogDebug("Recovering rooms");
-        foreach (string roomId in state.Rooms)
+        log.LogDebug("Loading staff");
+        foreach (var id in state.Staff)
         {
-            await result.AddRoom(roomId);
+            var item = await repo.Load<Staff>(id) ?? 
+                       throw new Exception("Staff not found");
+
+            result._staff.Add(item);
         }
 
         return result;
     }
 
-    State IEntityState<State>.CurrentState()
-        => new State(Name, _rooms.Select(x => x.Name).ToArray());
+    public State CurrentState()
+        => new (Name, _staff.Select(x => x.Name).ToArray());
 
     public string Name { get; }
 
-    public IReadOnlyCollection<ClassRoom> Rooms => _rooms;
+    public IReadOnlyCollection<Staff> Staff => _staff;
 
-    public async Task<School> AddRoom(string roomId)
+    public School AddStaff(Staff who)
     {
-        var room = await _repo.Load<ClassRoom>(roomId);
-
-        if (room is null)
-            throw new Exception("Room not found.");
-
-        var found = _rooms.FirstOrDefault(x => x.Name == roomId);
-        if (found is null)
-            _rooms.Add(room);
+        var found = _staff.FirstOrDefault(x => x.Name == who.Name);
+        if (found is not null)
+        {
+            _log.LogWarning("Staff already added");
+        }
+        else {_staff.Add(who);}
 
         return this;
     }

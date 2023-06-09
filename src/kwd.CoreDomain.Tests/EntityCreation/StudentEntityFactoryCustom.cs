@@ -1,12 +1,9 @@
 ﻿using kwd.CoreDomain.EntityCreation;
+using kwd.CoreDomain.Samples;
 
-namespace kwd.CoreDomain.Samples;
+namespace kwd.CoreDomain.Tests.EntityCreation;
 
-/// <summary>
-/// Provide an explicit entity factory;
-/// Provider will prefer to use this.
-/// </summary>
-public class StudentEntityFactory : IEntityFactory<Student, Student.State>
+public class StudentEntityFactoryCustom : IEntityFactory<Student, Student.State>
 {
     public ValueTask<Student> Create(Student.State state)
     {
@@ -19,6 +16,4 @@ public class StudentEntityFactory : IEntityFactory<Student, Student.State>
     }
 
     public bool CreatedAnEntity { get; private set; }
-
-    public bool ExplicitlyAddedToContainer { get; set; }
 }

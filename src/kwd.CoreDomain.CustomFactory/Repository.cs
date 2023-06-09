@@ -22,7 +22,7 @@ public class Repository : IRepository
 {
     private readonly IEntityProvider _provider;
 
-    private record Item(string Json, Type Type);
+    private record Item(string Json);
 
     private readonly Dictionary<string, Item> _data = new();
 
@@ -36,9 +36,7 @@ public class Repository : IRepository
     {
         var state = entity?.GetCurrentState();
 
-        _data[id] = new(
-            JsonSerializer.Serialize(state),
-            typeof(TEntity));
+        _data[id] = new(JsonSerializer.Serialize(state));
 
         return this;
     }
