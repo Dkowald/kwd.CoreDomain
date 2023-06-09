@@ -14,7 +14,7 @@ namespace kwd.CoreDomain.EntityCreation.impl;
 /// Each <see cref="EntityMethodFactory{TEntity,TState}"/> then
 /// requests its strategy details as-needs.
 /// </remarks>
-public class EntityMethodStrategies : IEntityMethodStrategies
+internal class EntityMethodStrategies : IEntityMethodStrategies
 {
     private readonly Dictionary<Type, Strategy> _strategies = new();
     

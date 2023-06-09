@@ -7,21 +7,19 @@ namespace kwd.CoreDomain.Samples;
 /// </summary>
 public class Student : IEntityState<Student.State>
 {
-    private readonly State _state;
-
     public record State(string Name);
 
-    State IEntityState<State>.CurrentState() =>
-        new State(Name);
+    //Get current internal state.
+    State IEntityState<State>.CurrentState() => new (Name);
 
     //This would normally be used as the entity factory
     public Student(State state)
     {
-        _state = state;
+        Name = state.Name;
         CreatedFromCtor = true;
     }
 
-    public string Name => _state.Name;
+    public string Name { get; }
 
     public bool CreatedFromCtor { get; set; }
 }

@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using kwd.CoreDomain.EntityCreation;
+﻿using kwd.CoreDomain.EntityCreation;
 using kwd.CoreDomain.EntityCreation.impl;
 using kwd.CoreDomain.Samples;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace kwd.CoreDomain.Tests.EntityCreation;
@@ -38,7 +38,7 @@ public class EntityProviderConfigTests
         var services = new ServiceCollection();
 
         //Explicit registration.
-        services.AddSingleton<IEntityFactory<Student, Student.State>, StudentEntityFactory>();
+        services.AddSingleton<IEntityFactory<Student, Student.State>, StudentEntityFactoryCustom>();
         
         var target = new EntityProviderConfig();
         target.EntityLifetime(ServiceLifetime.Scoped);

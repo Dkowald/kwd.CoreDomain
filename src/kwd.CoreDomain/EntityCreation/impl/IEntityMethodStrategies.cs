@@ -5,7 +5,7 @@ namespace kwd.CoreDomain.EntityCreation.impl;
 /// <summary>
 /// Maintain the set of method strategies found.
 /// </summary>
-public interface IEntityMethodStrategies
+internal interface IEntityMethodStrategies
 {
     /// <summary>
     /// Get strategy associated with method factory.

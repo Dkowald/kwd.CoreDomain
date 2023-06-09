@@ -18,7 +18,7 @@ public class Address : IEntityStateNull
         _log = log;
     }
 
-    public int Number { get; private set; } = 0;
+    public int Number { get; private set; }
 
     public string Name { get; private set; } = string.Empty;
 

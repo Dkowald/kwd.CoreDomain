@@ -10,7 +10,7 @@ namespace kwd.CoreDomain.EntityCreation.impl;
 /// <summary>
 /// Base for <see cref="EntityMethodFactory{TEntity,TState}"/>
 /// </summary>
-public abstract class EntityMethodFactory
+internal abstract class EntityMethodFactory
 {
     /// <summary>
     /// Determines the strategy to use for a <see cref="EntityMethodFactory{TEntity,TState}"/>.
@@ -19,21 +19,9 @@ public abstract class EntityMethodFactory
     /// <exception cref="MissingFactoryStrategy">Raised if no method factory strategy found</exception>
     public static Strategy MethodFactoryStrategy(Type entityType, Type stateType)
     {
-        var staticFactoryMethod = FindStaticFactoryMethod(entityType, stateType);
-
-        if (staticFactoryMethod is not null)
-        {
-            return new Strategy(staticFactoryMethod, null);
-        }
-
-        var constructor = FindConstructorMethod(entityType, stateType);
-
-        if (constructor is not null)
-        {
-            return new Strategy(null, constructor);
-        }
-
-        throw new MissingFactoryStrategy(entityType, stateType);
+        return TryFindStaticFactoryMethod(entityType, stateType) ??
+               TryFindConstructorMethod(entityType, stateType) ??
+               throw new MissingFactoryStrategy(entityType, stateType);
     }
 
     /// <summary>
@@ -45,7 +33,7 @@ public abstract class EntityMethodFactory
     /// <summary>
     /// The static method that returns a Task{TEntity}
     /// </summary>
-    internal protected static MethodInfo? FindStaticFactoryMethod(Type entityType, Type stateType)
+    protected internal static Strategy? TryFindStaticFactoryMethod(Type entityType, Type stateType)
     {
         var returnTypes = new[]
         {
@@ -55,34 +43,40 @@ public abstract class EntityMethodFactory
 
         var staticFactoryMethods = entityType
             .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
-            .Where(x => returnTypes.Contains(x.ReturnType) &&
-                        x.GetParameters().SingleOrDefault(p => p.ParameterType == stateType) is not null)
+            .Where(x => returnTypes.Contains(x.ReturnType))
+            .Select(x => new{Op = x, Args = x.GetParameters().Select(p => p.ParameterType).ToArray()})
+            .Where(x => x.Args.Any(p => p == stateType))
             .ToArray();
         
         if (staticFactoryMethods.Length > 1)
             throw new EntityFactoryDuplicates(EntityFactoryDuplicates.Reasons.MultipleStaticMethods,
                 entityType, stateType);
 
-        return staticFactoryMethods.SingleOrDefault();
+        var selectedMethod = staticFactoryMethods.SingleOrDefault();
+
+        return selectedMethod is null ? null : 
+            new Strategy(selectedMethod.Op, null, selectedMethod.Args);
     }
 
     /// <summary>
     /// The constructor that takes at-least a TState
     /// </summary>
-    internal protected static ConstructorInfo? FindConstructorMethod(Type entityType, Type stateType)
+    protected internal static Strategy? TryFindConstructorMethod(Type entityType, Type stateType)
     {
-        var ctors = entityType
+        var constructors = entityType
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-            .Where(x => x.GetParameters().Any(p => p.ParameterType == stateType))
+            .Select(x => new {Op = x, Args = x.GetParameters().Select(p => p.ParameterType).ToArray()} )
+            .Where(x => x.Args.Any(p => p == stateType))
             .ToArray();
         
-        if (ctors.Length > 1)
+        if (constructors.Length > 1)
         {
             throw new EntityFactoryDuplicates(EntityFactoryDuplicates.Reasons.MultipleConstructors,
                 entityType, stateType);
         }
 
-        return ctors.SingleOrDefault();
+        var selected = constructors.SingleOrDefault();
+        return selected is null ? null : new Strategy(null, selected.Op, selected.Args);
     }
 }
 
@@ -97,7 +91,7 @@ public abstract class EntityMethodFactory
 /// <item>state-ctor: <typeparamref name="TEntity"/>(<typeparamref name="TState"/> state, ...)</item>
 /// </list> 
 /// </summary>
-public class EntityMethodFactory<TEntity, TState> : EntityMethodFactory, IEntityFactory<TEntity, TState>
+internal class EntityMethodFactory<TEntity, TState> : EntityMethodFactory, IEntityFactory<TEntity, TState>
     where TEntity : notnull
 {
     private readonly IServiceProvider _container;
@@ -119,8 +113,8 @@ public class EntityMethodFactory<TEntity, TState> : EntityMethodFactory, IEntity
         
         if (_factoryStrategy.Static is not null)
         {
-            var args = _factoryStrategy.Static.GetParameters().Select(p =>
-                    p.ParameterType == stateType ? state : GetInjectedService(p.ParameterType))
+            var args = _factoryStrategy.Arguments.Select(p =>
+                    p == stateType ? state : GetInjectedService(p))
                 .ToArray();
             var objResult = _factoryStrategy.Static.Invoke(null, args) ??
                             throw new Exception("Static factory method returned null");
@@ -135,8 +129,8 @@ public class EntityMethodFactory<TEntity, TState> : EntityMethodFactory, IEntity
 
         if (_factoryStrategy.Constructor is not null)
         {
-            var args = _factoryStrategy.Constructor.GetParameters().Select(p =>
-                    p.ParameterType == stateType ? state : GetInjectedService(p.ParameterType))
+            var args = _factoryStrategy.Arguments.Select(p =>
+                    p == stateType ? state : GetInjectedService(p))
                 .ToArray();
 
             var objResult = _factoryStrategy.Constructor.Invoke(args) ??

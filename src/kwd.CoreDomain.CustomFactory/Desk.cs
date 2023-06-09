@@ -4,7 +4,8 @@ using kwd.CoreUtil.Strings;
 namespace kwd.CoreDomain.Samples;
 
 /// <summary>
-/// Entity with both ctor-factory and static-factory
+/// Entity with both ctor-factory and static-factory.
+/// Internal state NOT the same as presented state.
 /// </summary>
 public class Desk : IEntityState<Desk.State>
 {
