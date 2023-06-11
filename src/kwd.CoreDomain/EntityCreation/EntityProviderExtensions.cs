@@ -26,14 +26,14 @@ public static class EntityProviderExtensions
     
     /// <summary>
     /// Try get the state object type for a <typeparamref name="TEntity"/>
-    /// Using <see cref="IEntityState{TState}"/>.
+    /// Using <see cref="IInternalState{TState}"/>.
     /// </summary>
     public static Type? TryGetStateType<TEntity>(this IEntityProvider _) 
         => EntityProvider.TryGetEntityStateType(typeof(TEntity));
 
     /// <summary>
     /// Try get the state object type for a <paramref name="entityType"/>
-    /// Using <see cref="IEntityState{TState}"/>.
+    /// Using <see cref="IInternalState{TState}"/>.
     /// </summary>
     public static Type? TryGetStateType(this IEntityProvider _, Type entityType)
         => EntityProvider.TryGetEntityStateType(entityType);

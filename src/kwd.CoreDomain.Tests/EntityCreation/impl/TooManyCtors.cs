@@ -3,8 +3,8 @@ using Microsoft.Extensions.Logging;
 
 namespace kwd.CoreDomain.Tests.EntityCreation.impl;
 
-public class TooManyCtors : IEntityStateNull
+public class TooManyCtors : IInternalStateEmpty
 {
-    private TooManyCtors(NoInternalState _){}
-    public TooManyCtors(NoInternalState _, ILogger<TooManyCtors> __){}
+    private TooManyCtors(InternalStateEmpty _){}
+    public TooManyCtors(InternalStateEmpty _, ILogger<TooManyCtors> __){}
 }

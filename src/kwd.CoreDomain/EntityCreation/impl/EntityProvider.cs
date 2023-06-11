@@ -23,7 +23,7 @@ public class EntityProvider : IEntityProvider
 
     /// <summary> Try get the entity state type, returns null if it doesn't have a stateType</summary>
     public static Type? TryGetEntityStateType(Type entityType) =>
-        entityType.GetInterface(typeof(IEntityState<>).Name)?.GenericTypeArguments[0];
+        entityType.GetInterface(typeof(IInternalState<>).Name)?.GenericTypeArguments[0];
 
     /// <summary>
     /// Create a <see cref="EntityProvider"/> using the

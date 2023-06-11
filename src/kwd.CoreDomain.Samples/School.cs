@@ -8,7 +8,7 @@ namespace kwd.CoreDomain.Samples;
 /// internal vs public state;
 /// services and init-services
 /// </summary>
-public class School : IEntityState<School.State>
+public class School : IInternalState<School.State>
 {
     private readonly ILogger<School> _log;
     private readonly List<Staff> _staff = new();

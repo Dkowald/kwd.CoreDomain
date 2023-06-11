@@ -8,12 +8,12 @@ namespace kwd.CoreDomain.Samples;
 /// </summary>
 /// <remarks>
 /// It MUST still have a valid factory,
-/// but the <see cref="NoInternalState.Value"/> is used as its internal state.
+/// but the <see cref="InternalStateEmpty.Value"/> is used as its internal state.
 /// </remarks>
-public class Address : IEntityStateNull
+public class Address : IInternalStateEmpty
 {
     private readonly ILogger<Address> _log;
-    public Address(NoInternalState _, ILogger<Address> log)
+    public Address(InternalStateEmpty _, ILogger<Address> log)
     {
         _log = log;
     }

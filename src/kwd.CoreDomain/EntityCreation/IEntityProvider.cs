@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace kwd.CoreDomain.EntityCreation;
 
@@ -21,6 +20,6 @@ public interface IEntityProvider
     /// <inheritdoc cref="Create{TEntity}"/>
     ValueTask<TEntity> Create<TEntity, TState>(TState state)
         where TState : class
-        where TEntity : IEntityState<TState>
+        where TEntity : IInternalState<TState>
         => Create<TEntity>(state);
 }

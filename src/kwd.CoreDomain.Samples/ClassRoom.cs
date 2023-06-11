@@ -6,7 +6,7 @@ namespace kwd.CoreDomain.Samples;
 /// <summary>
 /// An entity with internal-state; services, init-services, and async-create with implicit static factory.
 /// </summary>
-public class ClassRoom : IEntityState<ClassRoom.State>
+public class ClassRoom : IInternalState<ClassRoom.State>
 {
     private readonly ILogger<ClassRoom> _log;
     private const int ReservedSpaceForTeacher = 50;
@@ -61,7 +61,7 @@ public class ClassRoom : IEntityState<ClassRoom.State>
         return result;
     }
 
-    State IEntityState<State>.CurrentState()
+    State IInternalState<State>.CurrentState()
         => new(Name, Desks, _floorSpace, Students.Select(x => x.Name).ToArray());
 
     public string Name { get; }

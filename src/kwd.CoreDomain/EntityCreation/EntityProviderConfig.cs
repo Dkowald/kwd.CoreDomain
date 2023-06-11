@@ -73,7 +73,7 @@ public class EntityProviderConfig
         AddWithLifetime(services, typeof(IEntityProvider), typeof(EntityProvider));
 
         var statefulEntities = _entityAssemblies.SelectMany(x => x.GetTypes())
-            .Where(x => x.IsAssignableTo(typeof(IEntityState)) && x.IsClass &&
+            .Where(x => x.IsAssignableTo(typeof(IInternalState)) && x.IsClass &&
                         !x.IsAbstract &&
                         (!x.IsGenericType || x.IsConstructedGenericType));
 
@@ -141,23 +141,6 @@ public class EntityProviderConfig
                 break;
             default:
                 services.AddTransient(interfaceType, implementationType);
-                break;
-        }
-    }
-
-    private void AddWithLifetime<T>(IServiceCollection service, Func<IServiceProvider, T> factory)
-        where T : class
-    {
-        switch (_entityScope)
-        {
-            case ServiceLifetime.Singleton:
-                service.AddSingleton(factory);
-                break;
-            case ServiceLifetime.Scoped:
-                service.AddScoped(factory);
-                break;
-            default:
-                service.AddTransient(factory);
                 break;
         }
     }
