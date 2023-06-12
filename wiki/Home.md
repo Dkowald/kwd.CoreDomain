@@ -10,3 +10,11 @@
  3. Support 2-step creation, with async initalization.
  
 See [[EntityProvider|EntityCreation/EntityProvider]] for details.
+
+## Domain Services
+
+Basic services useful in a domain
+
+1. A simple __IClock__ for injectable time.
+
+See [[Services|Services]] for details.
