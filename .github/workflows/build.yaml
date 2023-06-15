@@ -50,7 +50,7 @@ jobs:
       
     - name: Pack (beta)
       run: dotnet pack --no-build -c Release -o ./bin src/kwd.CoreDomain --version-suffix 'beta'
-      if: success() && github.ref == 'refs/heads/development'
+      #if: success() && github.ref == 'refs/heads/development'
 
     - name: Pack
       run: dotnet pack --no-build -c Release -o ./bin src/kwd.CoreDomain
@@ -65,7 +65,7 @@ jobs:
 
   publish:
     name: Publish to github packages
-    if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
+    #if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:
