@@ -5,12 +5,12 @@ namespace kwd.CoreDomain.Samples;
 /// <summary>
 /// An entity with state, and explicit factory.
 /// </summary>
-public class Student : IEntityState<Student.State>
+public class Student : IInternalState<Student.State>
 {
     public record State(string Name);
 
     //Get current internal state.
-    State IEntityState<State>.CurrentState() => new (Name);
+    State IInternalState<State>.CurrentState() => new (Name);
 
     //This would normally be used as the entity factory
     public Student(State state)

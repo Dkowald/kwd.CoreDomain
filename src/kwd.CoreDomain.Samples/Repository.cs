@@ -4,15 +4,15 @@ using kwd.CoreDomain.EntityCreation;
 namespace kwd.CoreDomain.Samples;
 
 /// <summary>
-/// A simple in-memory JSON store for entities, <see cref="IEntityState{TState}"/>.
+/// A simple in-memory JSON store for entities, <see cref="IInternalState{TState}"/>.
 /// </summary>
 public interface IRepository
 {
     public IRepository Store<TEntity>(string id, TEntity entity)
-        where TEntity : IEntityState;
+        where TEntity : IInternalState;
 
     public Task<TEntity?> Load<TEntity>(string id)
-        where TEntity : IEntityState;
+        where TEntity : IInternalState;
 }
 
 /// <summary>
@@ -32,7 +32,7 @@ public class Repository : IRepository
     }
 
     public IRepository Store<TEntity>(string id, TEntity? entity)
-        where TEntity : IEntityState
+        where TEntity : IInternalState
     {
         var state = entity?.GetCurrentState();
 
@@ -42,7 +42,7 @@ public class Repository : IRepository
     }
 
     public async Task<TEntity?> Load<TEntity>(string id)
-        where TEntity : IEntityState
+        where TEntity : IInternalState
     {
         if (!_data.TryGetValue(id, out var item))
             return default;

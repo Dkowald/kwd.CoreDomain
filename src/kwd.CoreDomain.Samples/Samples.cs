@@ -32,7 +32,7 @@ public class Samples
 
         var provider = cont.GetRequiredService<IEntityProvider>();
 
-        var entity = await provider.Create<Address>(NoInternalState.Value);
+        var entity = await provider.Create<Address>(InternalStateEmpty.Value);
         
         Assert.AreEqual("", entity.Name);
     }
@@ -47,7 +47,7 @@ public class Samples
 
         var provider = cont.GetRequiredService<IEntityProvider>();
 
-        var entity = await provider.Create<Address>(NoInternalState.Value);
+        var entity = await provider.Create<Address>(InternalStateEmpty.Value);
         
         Assert.AreEqual("", entity.Name);
     }
@@ -181,7 +181,7 @@ public class Samples
             ClassRoom.State.New("rm1", 10, 100));
         
         //store the entity state with favored serialization.
-        var entityState = ((IEntityState)entity).GetCurrentState();
+        var entityState = ((IInternalState)entity).GetCurrentState();
         var storedJson = JsonSerializer.Serialize(entityState);
         
         //now re-load:

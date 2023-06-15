@@ -7,7 +7,7 @@ namespace kwd.CoreDomain.Samples;
 /// Entity with both ctor-factory and static-factory.
 /// Internal state NOT the same as presented state.
 /// </summary>
-public class Desk : IEntityState<Desk.State>
+public class Desk : IInternalState<Desk.State>
 {
     private readonly string _room;
 
@@ -33,7 +33,7 @@ public class Desk : IEntityState<Desk.State>
         return Task.FromResult(result);
     }
 
-    State IEntityState<State>.CurrentState() =>
+    State IInternalState<State>.CurrentState() =>
         new(_room, Status);
 
     public string Status { get; private set; }

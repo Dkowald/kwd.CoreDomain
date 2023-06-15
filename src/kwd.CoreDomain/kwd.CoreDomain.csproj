@@ -8,9 +8,19 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<AnalysisLevel>latest</AnalysisLevel>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
+
 	<PropertyGroup>
 		<VersionPrefix>0.1.0</VersionPrefix>
+		<PackageReleaseNotes>
+			# Added EntityProvider, a richer factory approach for entities
+			# Add IClock service
+		</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<PropertyGroup>
 		<Authors>Derek Kowald</Authors>
 		<Product>KWD Core Domain</Product>
 		<Title>KWD Core Domain</Title>
@@ -20,10 +30,8 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageIcon>icon.png</PackageIcon>
-		<Tags>.NET Core;Utility</Tags>
-		<PackageReleaseNotes>
-			# Added EntityProvider, a richer factory approach for entities
-		</PackageReleaseNotes>
+		<PackageTags>kwd;DDD;Domain Utility; Helper</PackageTags>
+		<Copyright>Copyright (c) Derek Kowald 2023.</Copyright>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
@@ -42,5 +50,5 @@
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
 	</ItemGroup>
-
+	
 </Project>
