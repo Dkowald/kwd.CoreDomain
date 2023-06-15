@@ -5,7 +5,7 @@ namespace kwd.CoreDomain.EntityCreation;
 /// <summary>
 /// Describe the internal state of an entity.
 /// </summary>
-public interface IEntityState
+public interface IInternalState
 {
     /// <summary>
     /// The entities runtime-type
@@ -25,7 +25,7 @@ public interface IEntityState
 }
 
 /// <summary>
-/// <inheritdoc cref="IEntityState"/>
+/// <inheritdoc cref="IInternalState"/>
 /// This entity can create its own <typeparamref name="TState"/> state object.
 /// The entity MUST provide a factory:
 /// <list type="bullet">
@@ -35,17 +35,17 @@ public interface IEntityState
 /// </list>
 /// Note: first in list is used as factory; Error thrown if multiple of selected strategy found.
 /// </summary>
-public interface IEntityState<out TState> : IEntityState
+public interface IInternalState<out TState> : IInternalState
     where TState : class
 {
     /// <inheritdoc />
-    Type IEntityState.EntityType => GetType();
+    Type IInternalState.EntityType => GetType();
 
     /// <inheritdoc />
-    Type IEntityState.StateType => typeof(TState);
+    Type IInternalState.StateType => typeof(TState);
 
     /// <inheritdoc />
-    object IEntityState.GetCurrentState() => CurrentState();
+    object IInternalState.GetCurrentState() => CurrentState();
 
     /// <summary>
     /// Create a <typeparamref name="TState"/> to represent
