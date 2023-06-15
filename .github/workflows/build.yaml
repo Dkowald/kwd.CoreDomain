@@ -50,7 +50,7 @@ jobs:
       
     - name: Pack (beta)
       run: dotnet pack --no-build -c Release -o ./bin src/kwd.CoreDomain --version-suffix 'beta'
-      #if: success() && github.ref == 'refs/heads/development'
+      if: success() && github.ref == 'refs/heads/development'
 
     - name: Pack
       run: dotnet pack --no-build -c Release -o ./bin src/kwd.CoreDomain
@@ -71,10 +71,14 @@ jobs:
     permissions:
       packages: write
     steps:
+     
      - uses: actions/download-artifact@v3
        with:
         name: package
         path: bin/
+    
+     - name: PWD
+       run: pwd && ls ./bin/
 
      - name: Prep github push source
        run: > 
