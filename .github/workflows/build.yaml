@@ -92,4 +92,4 @@ jobs:
        run: >
          dotnet nuget push "./bin/*.nupkg" 
          --source "github"
-         --apiKey "dkowald:${{ secrets.GITHUB_TOKEN }}"
+         --api-key ${{secrets.GITHUB_TOKEN}}
