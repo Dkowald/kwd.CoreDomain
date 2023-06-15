@@ -65,7 +65,7 @@ jobs:
 
   publish:
     name: Publish to github packages
-    #if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -76,9 +76,6 @@ jobs:
        with:
         name: package
         path: bin/
-    
-     - name: PWD
-       run: pwd && ls ./bin/*.nupkg
 
      - name: Prep github push source
        run: > 
