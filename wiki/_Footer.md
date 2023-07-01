@@ -1,1 +1,1 @@
-kwd.CoreDomain v0.1.0: [Git](https://github.com/Dkowald/kwd.CoreDomain/)
+kwd.CoreDomain: [Git](https://github.com/Dkowald/kwd.CoreDomain/) / [Nuget](https://www.nuget.org/packages/kwd.CoreDomain/)
