@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IsPackablae>true</IsPackablae>
@@ -15,8 +15,7 @@
 	<PropertyGroup>
 		<VersionPrefix>0.1.0</VersionPrefix>
 		<PackageReleaseNotes>
-			# Added EntityProvider, a richer factory approach for entities
-			# Add IClock service
+			# Update dependencies
 		</PackageReleaseNotes>
 	</PropertyGroup>
 
@@ -46,9 +45,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="kwd.CoreUtil" Version="1.2.4" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+	  <PackageReference Include="kwld.CoreUtil" Version="1.3.2" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
 	</ItemGroup>
 	
 </Project>

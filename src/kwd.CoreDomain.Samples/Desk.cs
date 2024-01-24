@@ -1,5 +1,5 @@
 ﻿using kwd.CoreDomain.EntityCreation;
-using kwd.CoreUtil.Strings;
+using kwld.CoreUtil.Strings;
 
 namespace kwd.CoreDomain.Samples;
 

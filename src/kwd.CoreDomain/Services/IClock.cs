@@ -14,6 +14,9 @@ namespace kwd.CoreDomain.Services;
 /// 2. The Microsoft.Extensions.Internal.ISystemClock
 ///   since that implies use of an internal interface.
 /// </remarks>
+#if NET8_0_OR_GREATER
+[Obsolete("Consider replacing with System.TimeProvider")]
+#endif
 public interface  IClock
 {
     /// <summary>
